@@ -2,17 +2,20 @@ import django
 from django.core import mail
 from django.test import TestCase
 
-from django_capture_commit_hooks import TestCaseMixin, capture_commit_hooks
+from django_capture_on_commit_callbacks import (
+    TestCaseMixin,
+    capture_on_commit_callbacks,
+)
 
 
-class CaptureCommitHooksTests(TestCase):
+class CaptureOnCommitCallbacksTests(TestCase):
     if django.VERSION >= (2, 2):
         databases = ["default", "other"]
     else:
         multi_db = True
 
     def test_with_no_arguments(self):
-        with capture_commit_hooks() as hooks:
+        with capture_on_commit_callbacks() as hooks:
             response = self.client.post("/contact/", {"message": "I like your site"},)
 
         self.assertEqual(response.status_code, 200)
@@ -24,7 +27,7 @@ class CaptureCommitHooksTests(TestCase):
         self.assertEqual(mail.outbox[0].body, "I like your site")
 
     def test_with_execute(self):
-        with capture_commit_hooks(execute=True) as hooks:
+        with capture_on_commit_callbacks(execute=True) as hooks:
             response = self.client.post("/contact/", {"message": "I like your site"},)
 
         self.assertEqual(response.status_code, 200)
@@ -34,7 +37,7 @@ class CaptureCommitHooksTests(TestCase):
         self.assertEqual(mail.outbox[0].body, "I like your site")
 
     def test_with_alternate_database(self):
-        with capture_commit_hooks(using="other", execute=True) as hooks:
+        with capture_on_commit_callbacks(using="other", execute=True) as hooks:
             response = self.client.post(
                 "/contact/", {"message": "I like your site", "using": "other"},
             )
@@ -53,7 +56,7 @@ class TestCaseMixinTests(TestCaseMixin, TestCase):
         multi_db = True
 
     def test_with_execute(self):
-        with self.captureCommitHooks(execute=True) as hooks:
+        with self.captureOnCommitCallbacks(execute=True) as hooks:
             response = self.client.post("/contact/", {"message": "I like your site"},)
 
         self.assertEqual(response.status_code, 200)

@@ -3,7 +3,7 @@ from unittest import mock
 from django.db import DEFAULT_DB_ALIAS, connections
 
 
-class capture_commit_hooks:
+class capture_on_commit_callbacks:
     def __init__(self, *, using=DEFAULT_DB_ALIAS, execute=False):
         self.using = using
         self.execute = execute
@@ -11,7 +11,7 @@ class capture_commit_hooks:
 
     def __enter__(self):
         if self.hooks is not None:
-            raise RuntimeError("Cannot re-enter capture_commit_hooks()")
+            raise RuntimeError("Cannot re-enter capture_on_commit_callbacks()")
         self.hooks = []
         connection = connections[self.using]
         orig_on_commit = connection.on_commit
@@ -32,5 +32,5 @@ class capture_commit_hooks:
 
 
 class TestCaseMixin:
-    def captureCommitHooks(self, *, using=DEFAULT_DB_ALIAS, execute=False):
-        return capture_commit_hooks(using=using, execute=execute)
+    def captureOnCommitCallbacks(self, *, using=DEFAULT_DB_ALIAS, execute=False):
+        return capture_on_commit_callbacks(using=using, execute=execute)

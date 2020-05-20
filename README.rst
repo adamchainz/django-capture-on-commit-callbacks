@@ -38,14 +38,14 @@ API
 ``capture_on_commit_callbacks(*, using="default", execute=False)``
 ------------------------------------------------------------------
 
-Acts as a context manager that captures commit hooks for the given database connection.
-It returns the hook function as a list, from where you can call them.
+Acts as a context manager that captures ``on_commit`` callbacks for the given database connection.
+It returns the list of captured callback functions, from which you can call them.
 
 All arguments must be passed as keyword arguments.
 
-``using`` is the alias of the database connection to capture hooks for.
+``using`` is the alias of the database connection to capture callbacks for.
 
-``execute`` specifies whether to call all the hook functions automatically as the context manager exits.
+``execute`` specifies whether to call all the callbacks automatically as the context manager exits.
 
 For example, you can test a commit hook that sends an email like so:
 
@@ -58,16 +58,18 @@ For example, you can test a commit hook that sends an email like so:
 
     class ContactTests(TestCase):
         def test_post(self):
-            with capture_on_commit_callbacks() as hooks:
+            with capture_on_commit_callbacks() as callbacks:
                 response = self.client.post(
                     "/contact/",
                     {"message": "I like your site"},
                 )
 
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(hooks), 1)
-            # Execute the hook
-            hooks[0]()
+
+            self.assertEqual(len(callbacks), 1)
+            # Execute the callback
+            callbacks[0]()
+
             self.assertEqual(len(mail.outbox), 1)
             self.assertEqual(mail.outbox[0].subject, "Contact Form")
             self.assertEqual(mail.outbox[0].body, "I like your site")
@@ -83,14 +85,16 @@ The same test can be written a bit more succinctly with ``execute=True``:
 
     class ContactTests(TestCase):
         def test_post(self):
-            with capture_on_commit_callbacks(execute=True) as hooks:
+            with capture_on_commit_callbacks(execute=True) as callbacks:
                 response = self.client.post(
                     "/contact/",
                     {"message": "I like your site"},
                 )
 
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(hooks), 1)
+
+            self.assertEqual(len(callbacks), 1)
+
             self.assertEqual(len(mail.outbox), 1)
             self.assertEqual(mail.outbox[0].subject, "Contact Form")
             self.assertEqual(mail.outbox[0].body, "I like your site")
@@ -122,14 +126,16 @@ You could then rewrite the above tests with your custom ``TestCase`` class like 
 
     class ContactTests(TestCase):
         def test_post(self):
-            with self.captureOnCommitCallbacks(execute=True) as hooks:
+            with self.captureOnCommitCallbacks(execute=True) as callbacks:
                 response = self.client.post(
                     "/contact/",
                     {"message": "I like your site"},
                 )
 
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(len(hooks), 1)
+
+            self.assertEqual(len(callbacks), 1)
+
             self.assertEqual(len(mail.outbox), 1)
             self.assertEqual(mail.outbox[0].subject, "Contact Form")
             self.assertEqual(mail.outbox[0].body, "I like your site")

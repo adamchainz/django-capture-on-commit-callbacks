@@ -1,6 +1,6 @@
 from unittest import mock
 
-from django.db import connections, DEFAULT_DB_ALIAS
+from django.db import DEFAULT_DB_ALIAS, connections
 
 
 class capture_commit_hooks:

@@ -1,6 +1,7 @@
 import django
 from django.core import mail
 from django.test import TestCase
+
 from django_capture_commit_hooks import TestCaseMixin, capture_commit_hooks
 
 

@@ -39,7 +39,7 @@ API
 ------------------------------------------------------------------
 
 Acts as a context manager that captures commit hooks for the given database connection.
-It returns the hook function as a list, from where you can all them.
+It returns the hook function as a list, from where you can call them.
 
 All arguments must be passed as keyword arguments.
 

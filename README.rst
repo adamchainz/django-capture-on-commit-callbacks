@@ -16,6 +16,8 @@ This allows you to write your tests with the ``TestCase``, rather than needing t
 
 This package was made as a first pass for `Django PR #12944 <https://github.com/django/django/pull/12944>`__, which is a solution for `Ticket #30457 “on_commit should be triggered in a TestCase” <https://code.djangoproject.com/ticket/30457>`__.
 
+Read more in my blog post `The Fast Way to Test Django transaction.on_commit() Callbacks <https://adamj.eu/tech/2020/05/20/the-fast-way-to-test-django-transaction-on-commit-callbacks/>`__.
+
 Installation
 ============
 

@@ -1,5 +1,7 @@
 import django
 from django.core import mail
+from django.db import transaction
+from django.db.utils import IntegrityError
 from django.test import TestCase
 
 from django_capture_on_commit_callbacks import (
@@ -47,6 +49,20 @@ class CaptureOnCommitCallbacksTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, "Contact Form")
         self.assertEqual(mail.outbox[0].body, "I like your site")
+
+    def test_wih_rolled_back_savepoint(self):
+        with capture_on_commit_callbacks() as callbacks:
+            try:
+                with transaction.atomic():
+                    self.client.post(
+                        "/contact/", {"message": "I like your site"},
+                    )
+                    raise IntegrityError()
+            except IntegrityError:
+                # inner transaction.atomic() has been rolled back.
+                pass
+
+        self.assertEqual(callbacks, [])
 
 
 class TestCaseMixinTests(TestCaseMixin, TestCase):

@@ -41,13 +41,14 @@ API
 ------------------------------------------------------------------
 
 Acts as a context manager that captures ``on_commit`` callbacks for the given database connection.
-It returns the list of captured callback functions, from which you can call them.
+It returns a list that contains, on exit of the context only, the captured callback functions.
+From this list you can make assertions on the callbacks or call them to invoke their side effects, mimicking a commit.
 
 All arguments must be passed as keyword arguments.
 
 ``using`` is the alias of the database connection to capture callbacks for.
 
-``execute`` specifies whether to call all the callbacks automatically as the context manager exits.
+``execute`` specifies whether to call all the callbacks automatically as the context manager exits, if no exception has been raised.
 
 For example, you can test a commit hook that sends an email like so:
 

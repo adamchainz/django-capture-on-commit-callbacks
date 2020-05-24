@@ -32,5 +32,6 @@ class capture_on_commit_callbacks:
 
 
 class TestCaseMixin:
-    def captureOnCommitCallbacks(self, *, using=DEFAULT_DB_ALIAS, execute=False):
+    @classmethod
+    def captureOnCommitCallbacks(cls, *, using=DEFAULT_DB_ALIAS, execute=False):
         return capture_on_commit_callbacks(using=using, execute=execute)

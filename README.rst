@@ -41,8 +41,8 @@ API
 ------------------------------------------------------------------
 
 Acts as a context manager that captures ``on_commit`` callbacks for the given database connection.
-It returns a list that contains, on exit of the context only, the captured callback functions.
-From this list you can make assertions on the callbacks or call them to invoke their side effects, mimicking a commit.
+It returns a list that contains, on exit of the context, the captured callback functions.
+From this list you can make assertions on the callbacks or call them to invoke their side effects, emulating a commit.
 
 All arguments must be passed as keyword arguments.
 

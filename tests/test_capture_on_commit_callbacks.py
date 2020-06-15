@@ -1,4 +1,3 @@
-import django
 from django.core import mail
 from django.db import transaction
 from django.db.utils import IntegrityError
@@ -11,10 +10,7 @@ from django_capture_on_commit_callbacks import (
 
 
 class CaptureOnCommitCallbacksTests(TestCase):
-    if django.VERSION >= (2, 2):
-        databases = ["default", "other"]
-    else:
-        multi_db = True
+    databases = ["default", "other"]
 
     def test_with_no_arguments(self):
         with capture_on_commit_callbacks() as callbacks:
@@ -66,10 +62,7 @@ class CaptureOnCommitCallbacksTests(TestCase):
 
 
 class TestCaseMixinTests(TestCaseMixin, TestCase):
-    if django.VERSION >= (2, 2):
-        databases = ["default", "other"]
-    else:
-        multi_db = True
+    databases = ["default", "other"]
 
     def test_with_execute(self):
         with self.captureOnCommitCallbacks(execute=True) as callbacks:

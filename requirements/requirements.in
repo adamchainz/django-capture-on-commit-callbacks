@@ -12,6 +12,5 @@ pygments ; python_version == '3.8.*'
 pytest
 pytest-django
 pytest-randomly
-pytz
 secretstorage ; python_version == '3.8.*' # required for twine on linux
 twine ; python_version == '3.8.*'

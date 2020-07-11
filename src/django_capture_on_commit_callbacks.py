@@ -1,25 +1,20 @@
+from contextlib import contextmanager
+
 from django.db import DEFAULT_DB_ALIAS, connections
 
 
-class capture_on_commit_callbacks:
-    def __init__(self, *, using=DEFAULT_DB_ALIAS, execute=False):
-        self.using = using
-        self.execute = execute
-        self.callbacks = None
-
-    def __enter__(self):
-        if self.callbacks is not None:
-            raise RuntimeError("Cannot re-enter capture_on_commit_callbacks()")
-        self.start_count = len(connections[self.using].run_on_commit)
-        self.callbacks = []
-        return self.callbacks
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        run_on_commit = connections[self.using].run_on_commit[self.start_count :]
-        self.callbacks[:] = [func for sids, func in run_on_commit]
-        if exc_type is None and self.execute:
-            for hook in self.callbacks:
-                hook()
+@contextmanager
+def capture_on_commit_callbacks(*, using=DEFAULT_DB_ALIAS, execute=False):
+    callbacks = []
+    start_count = len(connections[using].run_on_commit)
+    try:
+        yield callbacks
+    finally:
+        run_on_commit = connections[using].run_on_commit[start_count:]
+        callbacks[:] = [func for sids, func in run_on_commit]
+        if execute:
+            for callback in callbacks:
+                callback()
 
 
 class TestCaseMixin:

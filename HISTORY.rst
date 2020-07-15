@@ -1,7 +1,11 @@
 History
 =======
 
+1.2.0 (2020-05-24)
+------------------
+
 * Drop Django 2.0 and 2.1 support.
+* Use ``@contextlib.contextmanager``.
 
 1.1.0 (2020-05-24)
 ------------------

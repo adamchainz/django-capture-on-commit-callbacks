@@ -15,6 +15,7 @@ Capture and make assertions on ``transaction.on_commit()`` `callbacks <https://d
 This allows you to write your tests with the ``TestCase``, rather than needing the slower ``TransactionTestCase`` to actually commit the transactions.
 
 This package was made as a first pass for `Django PR #12944 <https://github.com/django/django/pull/12944>`__, which is a solution for `Ticket #30457 “on_commit should be triggered in a TestCase” <https://code.djangoproject.com/ticket/30457>`__.
+The PR has been merged to Django and will be released in version 3.2, so this package can now be considered a backport.
 
 Read more in my blog post `The Fast Way to Test Django transaction.on_commit() Callbacks <https://adamj.eu/tech/2020/05/20/the-fast-way-to-test-django-transaction-on-commit-callbacks/>`__.
 

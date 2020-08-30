@@ -14,7 +14,10 @@ class CaptureOnCommitCallbacksTests(TestCase):
 
     def test_with_no_arguments(self):
         with capture_on_commit_callbacks() as callbacks:
-            response = self.client.post("/contact/", {"message": "I like your site"},)
+            response = self.client.post(
+                "/contact/",
+                {"message": "I like your site"},
+            )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(callbacks), 1)
@@ -26,7 +29,10 @@ class CaptureOnCommitCallbacksTests(TestCase):
 
     def test_with_execute(self):
         with capture_on_commit_callbacks(execute=True) as callbacks:
-            response = self.client.post("/contact/", {"message": "I like your site"},)
+            response = self.client.post(
+                "/contact/",
+                {"message": "I like your site"},
+            )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(callbacks), 1)
@@ -37,7 +43,8 @@ class CaptureOnCommitCallbacksTests(TestCase):
     def test_with_alternate_database(self):
         with capture_on_commit_callbacks(using="other", execute=True) as callbacks:
             response = self.client.post(
-                "/contact/", {"message": "I like your site", "using": "other"},
+                "/contact/",
+                {"message": "I like your site", "using": "other"},
             )
 
         self.assertEqual(response.status_code, 200)
@@ -51,7 +58,8 @@ class CaptureOnCommitCallbacksTests(TestCase):
             try:
                 with transaction.atomic():
                     self.client.post(
-                        "/contact/", {"message": "I like your site"},
+                        "/contact/",
+                        {"message": "I like your site"},
                     )
                     raise IntegrityError()
             except IntegrityError:
@@ -66,7 +74,10 @@ class TestCaseMixinTests(TestCaseMixin, TestCase):
 
     def test_with_execute(self):
         with self.captureOnCommitCallbacks(execute=True) as callbacks:
-            response = self.client.post("/contact/", {"message": "I like your site"},)
+            response = self.client.post(
+                "/contact/",
+                {"message": "I like your site"},
+            )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(callbacks), 1)

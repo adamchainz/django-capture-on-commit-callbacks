@@ -11,6 +11,10 @@ django-capture-on-commit-callbacks
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/python/black
 
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
+
 Capture and make assertions on ``transaction.on_commit()`` `callbacks <https://docs.djangoproject.com/en/3.0/topics/db/transactions/#performing-actions-after-commit>`__.
 This allows you to write your tests with the ``TestCase``, rather than needing the slower ``TransactionTestCase`` to actually commit the transactions.
 

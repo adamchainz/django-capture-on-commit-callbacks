@@ -1,6 +1,28 @@
 from contextlib import contextmanager
 
+import django
+from django.core import checks
 from django.db import DEFAULT_DB_ALIAS, connections
+
+
+@checks.register(checks.Tags.compatibility)
+def check_django_version(**kwargs):
+    errors = []
+    if django.VERSION >= (3, 2):
+        errors.append(
+            checks.Error(
+                id="dcocc.E001",
+                msg=(
+                    "django-capture-on-commit-callbacks is unnecessary on "
+                    + "Django 3.2+."
+                ),
+                hint=(
+                    "The functionality has been merged as "
+                    + "TestCase.captureOnCommitCallbacks()"
+                ),
+            )
+        )
+    return errors
 
 
 @contextmanager

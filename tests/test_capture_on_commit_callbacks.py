@@ -1,12 +1,31 @@
+from unittest import mock
+
+import django
 from django.core import mail
 from django.db import transaction
 from django.db.utils import IntegrityError
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 
 from django_capture_on_commit_callbacks import (
     TestCaseMixin,
     capture_on_commit_callbacks,
+    check_django_version,
 )
+
+
+class CheckDjangoVersionTests(SimpleTestCase):
+    def test_old_django(self):
+        with mock.patch.object(django, "VERSION", (3, 1)):
+            errors = check_django_version()
+
+        assert errors == []
+
+    def test_new_django(self):
+        with mock.patch.object(django, "VERSION", (3, 2)):
+            errors = check_django_version()
+
+        assert len(errors) == 1
+        assert errors[0].id == "dcocc.E001"
 
 
 class CaptureOnCommitCallbacksTests(TestCase):

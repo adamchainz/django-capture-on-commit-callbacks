@@ -2,6 +2,9 @@
 History
 =======
 
+1.5.0 (2021-06-19)
+------------------
+
 * Move incompatibility check for Django 3.2 from a system check to a use time
   check. This is because pytest does not run system checks.
 

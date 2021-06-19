@@ -2,6 +2,9 @@
 History
 =======
 
+* Move incompatibility check for Django 3.2 from a system check to a use time
+  check. This is because pytest does not run system checks.
+
 * Stop distributing tests to reduce package size. Tests are not intended to be
   run outside of the tox setup in the repository. Repackagers can use GitHub's
   tarballs per tag.

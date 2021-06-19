@@ -1,32 +1,23 @@
 from contextlib import contextmanager
 
 import django
-from django.core import checks
+from django.core.exceptions import ImproperlyConfigured
 from django.db import DEFAULT_DB_ALIAS, connections
 
 
-@checks.register(checks.Tags.compatibility)
-def check_django_version(**kwargs):
-    errors = []
+def check_django_version():
     if django.VERSION >= (3, 2):
-        errors.append(
-            checks.Error(
-                id="dcocc.E001",
-                msg=(
-                    "django-capture-on-commit-callbacks is unnecessary on "
-                    + "Django 3.2+."
-                ),
-                hint=(
-                    "The functionality has been merged as "
-                    + "TestCase.captureOnCommitCallbacks()"
-                ),
-            )
+        raise ImproperlyConfigured(
+            "django-capture-on-commit-callbacks is unnecessary on Django "
+            + "3.2+. The functionality has been merged as "
+            + "TestCase.captureOnCommitCallbacks()"
         )
-    return errors
 
 
 @contextmanager
 def capture_on_commit_callbacks(*, using=DEFAULT_DB_ALIAS, execute=False):
+    check_django_version()
+
     callbacks = []
     start_count = len(connections[using].run_on_commit)
     try:
@@ -40,6 +31,11 @@ def capture_on_commit_callbacks(*, using=DEFAULT_DB_ALIAS, execute=False):
 
 
 class TestCaseMixin:
+    @classmethod
+    def __init_subclass__(cls, *args, **kwargs):
+        check_django_version()
+        super().__init_subclass__(*args, **kwargs)
+
     @classmethod
     def captureOnCommitCallbacks(cls, *, using=DEFAULT_DB_ALIAS, execute=False):
         return capture_on_commit_callbacks(using=using, execute=execute)

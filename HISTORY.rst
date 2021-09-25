@@ -2,6 +2,11 @@
 History
 =======
 
+* Capture callbacks recursively.
+  This backports the new behaviour from Django 4.0 (`Ticket #33054 <https://code.djangoproject.com/ticket/33054>`__).
+
+  Thanks to Eugene Morozov in `PR #118 <https://github.com/adamchainz/django-capture-on-commit-callbacks/pull/118>`__.
+
 1.6.0 (2021-08-14)
 ------------------
 

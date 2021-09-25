@@ -7,6 +7,9 @@ History
 
   Thanks to Eugene Morozov in `PR #118 <https://github.com/adamchainz/django-capture-on-commit-callbacks/pull/118>`__.
 
+* Remove Django 3.2 incompatibility check.
+  Because this package now backports the change from Django 4.0, there is a legitimate reason to use this package on Django 3.2.
+
 1.6.0 (2021-08-14)
 ------------------
 

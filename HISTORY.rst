@@ -2,6 +2,9 @@
 History
 =======
 
+1.7.0 (2021-09-25)
+------------------
+
 * Capture callbacks recursively.
   This backports the new behaviour from Django 4.0 (`Ticket #33054 <https://code.djangoproject.com/ticket/33054>`__).
 

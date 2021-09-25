@@ -34,7 +34,7 @@ def capture_on_commit_callbacks(
                 for callback in callbacks:
                     callback()
 
-            if callback_count == len(connections[using].run_on_commit):
+            if len(connections[using].run_on_commit) == callback_count:
                 break
             start_count = callback_count - 1
             callback_count = len(connections[using].run_on_commit)

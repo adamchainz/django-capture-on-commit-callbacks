@@ -124,7 +124,7 @@ else:
         def test_execute_recursive(self):
             callback_called = False
 
-            def enqueue_callback(self):
+            def enqueue_callback():
                 def hook():
                     nonlocal callback_called
                     callback_called = True

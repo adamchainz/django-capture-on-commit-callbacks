@@ -40,7 +40,7 @@ Requirements
 
 Python 3.6 to 3.9 supported.
 
-Django 2.2 to 3.2 supported.
+Django 2.2 to 4.0 supported.
 
 **Note:** This package is not needed on Django 3.2+ and a system check will trigger an error on such versions.
 

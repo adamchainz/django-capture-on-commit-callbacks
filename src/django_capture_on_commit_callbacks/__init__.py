@@ -1,13 +1,25 @@
 from contextlib import contextmanager
 from typing import Any, Callable, ContextManager, Generator, List
 
+import django
+from django.core.exceptions import ImproperlyConfigured
 from django.db import DEFAULT_DB_ALIAS, connections
+
+
+def check_django_version() -> None:
+    if django.VERSION >= (4, 0):
+        raise ImproperlyConfigured(
+            "django-capture-on-commit-callbacks is unnecessary on Django "
+            + "4.0+. The functionality has been merged as "
+            + "TestCase.captureOnCommitCallbacks()"
+        )
 
 
 @contextmanager
 def capture_on_commit_callbacks(
     *, using: str = DEFAULT_DB_ALIAS, execute: bool = False
 ) -> Generator[List[Callable[[], None]], None, None]:
+    check_django_version()
 
     callbacks: List[Callable[[], None]] = []
     start_count = len(connections[using].run_on_commit)
@@ -31,6 +43,7 @@ def capture_on_commit_callbacks(
 class TestCaseMixin:
     @classmethod
     def __init_subclass__(cls, *args: Any, **kwargs: Any) -> None:
+        check_django_version()
         super().__init_subclass__(*args, **kwargs)  # type: ignore [call-arg]
 
     @classmethod

@@ -3,6 +3,7 @@ History
 =======
 
 * Support Django 4.0.
+  Usage raises ``ImproperlyConfigured`` on Django 4.0 since all features are available in Django core.
 
 1.7.0 (2021-09-25)
 ------------------

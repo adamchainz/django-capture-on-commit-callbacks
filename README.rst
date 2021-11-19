@@ -5,8 +5,8 @@ django-capture-on-commit-callbacks
 .. image:: https://img.shields.io/github/workflow/status/adamchainz/django-capture-on-commit-callbacks/CI/main?style=for-the-badge
    :target: https://github.com/adamchainz/django-capture-on-commit-callbacks/actions?workflow=CI
 
-.. image:: https://img.shields.io/codecov/c/github/adamchainz/django-capture-on-commit-callbacks/main?style=for-the-badge
-   :target: https://app.codecov.io/gh/adamchainz/django-capture-on-commit-callbacks
+.. image:: https://img.shields.io/badge/Coverage-100%25-success?style=for-the-badge
+   :target: https://github.com/adamchainz/django-capture-on-commit-callbacks/actions?workflow=CI
 
 .. image:: https://img.shields.io/pypi/v/django-capture-on-commit-callbacks.svg?style=for-the-badge
    :target: https://pypi.org/project/django-capture-on-commit-callbacks/

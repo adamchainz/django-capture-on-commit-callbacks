@@ -59,7 +59,6 @@ if django.VERSION >= (4, 0):
                 "django-capture-on-commit-callbacks is unnecessary on Django 4.0+."
             )
 
-
 else:
 
     class CaptureOnCommitCallbacksTests(TestCase):  # type: ignore [no-redef]

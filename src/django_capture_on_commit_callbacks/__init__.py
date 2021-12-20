@@ -44,7 +44,7 @@ class TestCaseMixin:
     @classmethod
     def __init_subclass__(cls, *args: Any, **kwargs: Any) -> None:
         check_django_version()
-        super().__init_subclass__(*args, **kwargs)  # type: ignore [call-arg]
+        super().__init_subclass__(*args, **kwargs)
 
     @classmethod
     def captureOnCommitCallbacks(

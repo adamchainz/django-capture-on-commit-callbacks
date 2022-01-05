@@ -177,7 +177,7 @@ else:
                 transaction.on_commit(leaf_1)
                 transaction.on_commit(leaf_2)
 
-            with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            with capture_on_commit_callbacks(execute=True) as callbacks:
                 transaction.on_commit(branch_1)
 
             self.assertEqual(branch_1_call_counter, 1)

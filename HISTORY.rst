@@ -2,6 +2,13 @@
 History
 =======
 
+
+* Fix a bug from the recursive callback change in Django 4.0 where
+  callbacks could be executed multiple times
+  (`Django Ticket #33410 <https://code.djangoproject.com/ticket/33410>`__).
+
+  Thanks to Petter Friberg for the report and upstream PR.
+
 1.9.0 (2021-10-05)
 ------------------
 

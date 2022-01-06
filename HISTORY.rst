@@ -2,6 +2,9 @@
 History
 =======
 
+1.9.1 (2022-01-06)
+------------------
+
 
 * Fix a bug from the recursive callback change in Django 4.0 where
   callbacks could be executed multiple times

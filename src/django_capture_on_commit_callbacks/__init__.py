@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from contextlib import contextmanager
-from typing import Any, Callable, ContextManager, Generator, List
+from typing import Any, Callable, ContextManager, Generator
 
 import django
 from django.core.exceptions import ImproperlyConfigured
@@ -18,10 +20,10 @@ def check_django_version() -> None:
 @contextmanager
 def capture_on_commit_callbacks(
     *, using: str = DEFAULT_DB_ALIAS, execute: bool = False
-) -> Generator[List[Callable[[], None]], None, None]:
+) -> Generator[list[Callable[[], None]], None, None]:
     check_django_version()
 
-    callbacks: List[Callable[[], None]] = []
+    callbacks: list[Callable[[], None]] = []
     start_count = len(connections[using].run_on_commit)
     try:
         yield callbacks
@@ -47,5 +49,5 @@ class TestCaseMixin:
     @classmethod
     def captureOnCommitCallbacks(
         cls, *, using: str = DEFAULT_DB_ALIAS, execute: bool = False
-    ) -> ContextManager[List[Callable[[], None]]]:
+    ) -> ContextManager[list[Callable[[], None]]]:
         return capture_on_commit_callbacks(using=using, execute=execute)

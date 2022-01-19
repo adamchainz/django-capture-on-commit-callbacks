@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.core import mail
 from django.db import DEFAULT_DB_ALIAS, transaction
 from django.http import HttpResponse

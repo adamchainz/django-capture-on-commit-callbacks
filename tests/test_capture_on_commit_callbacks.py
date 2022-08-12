@@ -64,7 +64,7 @@ if django.VERSION >= (4, 0):
 else:
 
     class CaptureOnCommitCallbacksTests(TestCase):  # type: ignore [no-redef]
-        databases = ["default", "other"]
+        databases = {"default", "other"}
 
         def test_with_no_arguments(self):
             with capture_on_commit_callbacks() as callbacks:
@@ -191,7 +191,7 @@ else:
             self.assertEqual(callbacks, [branch_1, branch_2, leaf_3, leaf_1, leaf_2])
 
     class TestCaseMixinTests(TestCaseMixin, TestCase):  # type: ignore [no-redef]
-        databases = ["default", "other"]
+        databases = {"default", "other"}
 
         def test_with_execute(self):
             with self.captureOnCommitCallbacks(execute=True) as callbacks:

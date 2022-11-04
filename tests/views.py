@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from django.core import mail
-from django.db import DEFAULT_DB_ALIAS, transaction
+from django.db import DEFAULT_DB_ALIAS
+from django.db import transaction
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 

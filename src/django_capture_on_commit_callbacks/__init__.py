@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any, Callable, ContextManager, Generator
+from typing import Any
+from typing import Callable
+from typing import ContextManager
+from typing import Generator
 
 import django
 from django.core.exceptions import ImproperlyConfigured
-from django.db import DEFAULT_DB_ALIAS, connections
+from django.db import connections
+from django.db import DEFAULT_DB_ALIAS
 
 
 def check_django_version() -> None:

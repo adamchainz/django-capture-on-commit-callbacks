@@ -9,13 +9,12 @@ from django.core import mail
 from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.db.utils import IntegrityError
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase
+from django.test import TestCase
 
-from django_capture_on_commit_callbacks import (
-    TestCaseMixin,
-    capture_on_commit_callbacks,
-    check_django_version,
-)
+from django_capture_on_commit_callbacks import capture_on_commit_callbacks
+from django_capture_on_commit_callbacks import check_django_version
+from django_capture_on_commit_callbacks import TestCaseMixin
 
 mock_django_version = partial(mock.patch.object, django, "VERSION")
 

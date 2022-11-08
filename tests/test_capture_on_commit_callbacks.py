@@ -53,7 +53,7 @@ if django.VERSION >= (4, 0):
         def test_subclass_errors(self):
             with pytest.raises(ImproperlyConfigured) as excinfo:
 
-                class TestTestCase(TestCaseMixin, TestCase):
+                class TestTestCase(TestCaseMixin, TestCase):  # type: ignore [misc]
                     pass
 
             assert excinfo.value.args[0].startswith(
@@ -189,7 +189,7 @@ else:
 
             self.assertEqual(callbacks, [branch_1, branch_2, leaf_3, leaf_1, leaf_2])
 
-    class TestCaseMixinTests(TestCaseMixin, TestCase):  # type: ignore [no-redef]
+    class TestCaseMixinTests(TestCaseMixin, TestCase):  # type: ignore [misc,no-redef]
         databases = {"default", "other"}
 
         def test_with_execute(self):

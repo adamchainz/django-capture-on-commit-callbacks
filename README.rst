@@ -18,6 +18,14 @@ django-capture-on-commit-callbacks
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
 
+----
+
+**Unmaintained:** I'm no longer maintaining this package because it’s only
+useful on Django 3.2. If you have any problems, consider copying the source
+into your project.
+
+----
+
 Capture and make assertions on ``transaction.on_commit()`` `callbacks <https://docs.djangoproject.com/en/3.0/topics/db/transactions/#performing-actions-after-commit>`__.
 This allows you to write your tests with the ``TestCase``, rather than needing the slower ``TransactionTestCase`` to actually commit the transactions.
 
